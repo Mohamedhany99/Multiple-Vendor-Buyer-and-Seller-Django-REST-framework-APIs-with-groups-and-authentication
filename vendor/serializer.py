@@ -3,7 +3,7 @@ from rest_framework import serializers
 from vendor.models import Buyer
 from vendor.models import Seller
 from vendor.models import Products
-
+from vendor import services
 class BuyerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Buyer
@@ -21,7 +21,7 @@ class SellerSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        return data
+        return services.UserDataClass(**data)
 
 
 class ProductsSerializer(serializers.ModelSerializer):
@@ -32,3 +32,33 @@ class ProductsSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         return data
+
+class UserSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    email = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        return response.Response(data={data})
+# class PermissionSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Permission
+#         fields = ('id', 'name', 'codename')
+
+# class GroupSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Group
+#         fields = ('id', 'name')
+
+# class AuthUserSerializer(serializers.ModelSerializer):
+
+#     groups = GroupSerializer(many=True) 
+#     permissions = PermissionSerializer(many=True, source='user_permissions')
+
+#     class Meta:
+#         model = User
+#         fields = ('id', 'username', 'first_name', 'last_name', 'email', 
+#             'is_staff', 'is_active', 'is_superuser', 'last_login', 
+#             'date_joined', 'groups', 'user_permissions', 'permissions')

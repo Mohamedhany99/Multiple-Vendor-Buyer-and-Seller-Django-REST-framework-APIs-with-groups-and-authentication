@@ -3,7 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.views import APIView
-from rest_framework import permissions
+from rest_framework import permissions , views, response, exceptions
 
 from vendor.models import Buyer
 from vendor.models import Seller
@@ -11,7 +11,17 @@ from vendor.models import Products
 from vendor.serializer import BuyerSerializer
 from vendor.serializer import SellerSerializer
 from vendor.serializer import ProductsSerializer
+import vendor.serializer
 
+class RegisterAPI(views.APIView):
+    
+    def post(self,request):
+        serializer = vendor.serializer.UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        data = serializer.validated_data
+        print(data)
+        return response.Response(data={"hello":"world"}) 
 
 class AllPagination(LimitOffsetPagination):
     default_limit = 10
