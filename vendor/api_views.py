@@ -13,6 +13,11 @@ from vendor.serializer import SellerSerializer
 from vendor.serializer import ProductsSerializer
 import vendor.serializer
 
+from vendor.permissions import IsPrivateAllowed
+
+class PrivateAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated, IsPrivateAllowed]
+
 class RegisterAPI(views.APIView):
     
     def post(self,request):
@@ -21,7 +26,7 @@ class RegisterAPI(views.APIView):
 
         data = serializer.validated_data
         print(data)
-        return response.Response(data={"hello":"world"}) 
+        return response.Response(data) 
 
 class AllPagination(LimitOffsetPagination):
     default_limit = 10
