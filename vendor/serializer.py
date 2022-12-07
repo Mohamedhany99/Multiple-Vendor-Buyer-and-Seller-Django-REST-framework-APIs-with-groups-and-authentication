@@ -4,6 +4,7 @@ from vendor.models import Buyer
 from vendor.models import Seller
 from vendor.models import Products
 from vendor import services
+# BUYER SERIALIZER
 class BuyerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Buyer
@@ -13,7 +14,7 @@ class BuyerSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         return data
 
-
+# SELLER SERIALIZER
 class SellerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seller
@@ -23,7 +24,7 @@ class SellerSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         return services.UserDataClass(**data)
 
-
+# PRODUCTS SERIALIZER
 class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
@@ -32,7 +33,7 @@ class ProductsSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         return data
-
+# USER SERIALIZER
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     first_name = serializers.CharField()

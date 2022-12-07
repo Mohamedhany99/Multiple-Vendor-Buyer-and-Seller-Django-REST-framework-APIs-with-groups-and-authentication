@@ -18,18 +18,22 @@ from django.urls import path , include
 
 import vendor.api_views
 urlpatterns = [
+    
     path('api/',include("vendor.urls")),
+    # api for users login
     path('api-auth/', include('rest_framework.urls')),
+    # admin panel
     path('admin/', admin.site.urls),
+    # buyer apis
     path('buyer/',vendor.api_views.BuyerList.as_view()),
     path('buyer/create/',vendor.api_views.BuyerCreate.as_view()),
     path('buyer/<int:id>/',vendor.api_views.BuyerList.as_view()),
-    
+    # seller apis
     path('seller/',vendor.api_views.SellerList.as_view()),
     path('seller/create/',vendor.api_views.SellerCreate.as_view()),
     path('seller/<int:id>/',vendor.api_views.SellerRetrieveUpdateDestroy.as_view()),
 
-    
+    # products apis
     path('products/',vendor.api_views.ProductsList.as_view()),
     path('products/create/',vendor.api_views.ProductsCreate.as_view()),
     path('products/<int:id>/',vendor.api_views.ProductsRetrieveUpdateDestroy.as_view()),

@@ -27,12 +27,12 @@ class RegisterAPI(views.APIView):
         data = serializer.validated_data
         print(data)
         return response.Response(data) 
-
+# pagination of the APIs
 class AllPagination(LimitOffsetPagination):
     default_limit = 10
     max_limit = 100
     
-# Buyer Functions
+# Buyer API CRUD Functions
 class BuyerList(ListAPIView):
     queryset = Buyer.objects.all()
     serializer_class = BuyerSerializer
@@ -78,7 +78,7 @@ class BuyerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
             })
         return response
 
-# seller functions
+# seller API CRUD functions
 class SellerList(ListAPIView):
     queryset = Seller.objects.all()
     serializer_class = SellerSerializer
@@ -125,7 +125,7 @@ class SellerRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
             })
         return response
 
-# Products Functions
+# Products API CRUD Functions
 class ProductsList(ListAPIView):
     queryset = Products.objects.all()
     serializer_class = ProductsSerializer

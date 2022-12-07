@@ -7,13 +7,14 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 
-# This code is triggered whenever a new user has been created and saved to the database
+# This code is to create an authentication token for each new user has been created and saved to the database
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
-# to create tokens for already registered users uncomment the next section
+# to create tokens for already registered users uncomment the next section run it and comment it again
+
 # from django.contrib.auth.models import User
 # from rest_framework.authtoken.models import Token
 
